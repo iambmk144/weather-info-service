@@ -4,15 +4,13 @@ const axios = require('axios');
 const app = express();
 const port = 3000;
 
-// Replace with your WeatherStack API key
 const apiKey = '897512345f310f2382d2e1064f52cbf1';
 
-// Route to fetch weather data
 app.get('/weather', async (req, res) => {
   const city = req.query.city;
 
   if (!city) {
-    return res.status(400).send({ error: 'Please provide a city name' });
+    return res.status(400).send({ error: 'Please Enter a city name' });
   }
 
   const url = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${city}`;
@@ -22,7 +20,7 @@ app.get('/weather', async (req, res) => {
     const weatherData = response.data;
 
     if (weatherData.error) {
-      return res.status(404).send({ error: 'City not found' });
+      return res.status(404).send({ error: 'Given City  is not found' });
     }
 
     res.send({
@@ -33,7 +31,7 @@ app.get('/weather', async (req, res) => {
       wind_speed: weatherData.current.wind_speed,
     });
   } catch (error) {
-    res.status(500).send({ error: 'Unable to fetch weather data' });
+    res.status(500).send({ error: 'Unable to fetch Respected weather data' });
   }
 });
 
